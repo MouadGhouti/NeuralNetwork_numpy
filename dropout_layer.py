@@ -30,9 +30,3 @@ class Dropout(Layer):
         zero_indices = np.random.choice(input.shape[0], size=num_zero_rows, replace=False)
         mask[zero_indices, :] = 0
         return mask 
-
-
-# x = np.random.randn(5, 14) 
-
-
-# print(Dropout.create_dropout_mask(x,0))

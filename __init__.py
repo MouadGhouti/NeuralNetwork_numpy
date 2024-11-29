@@ -4,3 +4,4 @@ from .dense_layer import Dense
 from .losses import mse, mse_derivative
 from .network import train, predict
 from .dropout_layer import Dropout
+from .display import visNetwork

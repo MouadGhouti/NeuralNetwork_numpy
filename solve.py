@@ -5,7 +5,6 @@ from network import train, predict
 from losses import mse
 import numpy as np
 from sklearn.datasets import make_moons
-
 number_samples = 1000
 X, y = make_moons(n_samples=number_samples, noise=0.1)
 x_data = [a for a in enumerate(X)]
@@ -29,16 +28,17 @@ y_test = np.array(y_test).astype(float)
 network = [
     Dense(2,8),
     Sigmoid(),
-    Dropout(8,8),
-    Dense(8,5),
-    Tanh(),
-    Dense(5,1),
+    Dropout(8,10),
     Sigmoid(),
+    Dense(10,2),
+    Sigmoid()
 ]
 
-epocs = 1000
-learning_rate = 0.1
+epochs = 100
+learning_rate = 0.4
 
-train(network, epocs, learning_rate, x, y, verbose=True)
+#Change mse to cross entropy loss
+train(network, epochs, learning_rate, x, y, verbose=True)
+# print("test loss: ",mse(y_test,predict(network,x_test.T))) 
 
-print(mse(y_test,predict(network,x_test.T)))
+print((y_test-predict(network,x_test.T)).shape)

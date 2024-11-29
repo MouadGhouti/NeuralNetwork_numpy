@@ -1,5 +1,7 @@
 import tqdm
 from losses import mse, mse_derivative
+from display import visNetwork
+import matplotlib.pyplot as plt
 
 def train(network, epochs, learning_rate, input, outputs, verbose=False):
     for e in tqdm.tqdm(range(epochs)):
@@ -16,8 +18,9 @@ def train(network, epochs, learning_rate, input, outputs, verbose=False):
                 grad=layer.backward(grad, learning_rate)
                 
         if(verbose):
-            if(e%100==0):
-                print(f"Epoc: {e}, Error: {error}")
+            visNetwork(network, error)
+    plt.ioff()
+    plt.show()
 
 
 def predict(network, input):
@@ -27,4 +30,6 @@ def predict(network, input):
            layer.dropout_t=0
         if layer.__module__ == 'Threshold':
             continue
+        # else:
+        #     output=layer.forward(output)
     return output
